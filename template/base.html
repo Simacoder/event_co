@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}
+        {% endblock %}
+    </title>
+        <!-- CDN LIBRARY-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+
+        }
+       
+        body{
+            background-color: aqua;
+            width: 100%;
+            min-height:100%;
+            display: block;
+
+        }
+        .nav li a{
+            color: blueviolet;
+            font-size: 20px;
+        }
+        .navbar-brand{
+            color: blueviolet;
+            font-size: 25px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+        
+        .navbar-nav  {
+            width: 65;
+            display: flex;
+            justify-content: left;
+        } 
+        .navbar-nav li {
+            margin-left: 20px;
+
+        }
+
+        .navbar-nav li a {
+            font-size: 19px;
+            color: azure;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .navbar-nav li a:hover{
+            color: aqua;
+        }
+        .search {
+            display: flex;
+            align-items: center;
+            margin-right: 0;
+        }
+        .search form{
+            display: flex;
+            margin: 0;
+            
+        }
+
+        .search input {
+            padding: 10px;
+            border: 1px solid aqua;
+            outline: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .search input:hover {
+            border: 1px solid #72a0d4;
+        }
+
+        .search button {
+            padding: 10px;
+            background-color: azure;
+            border: none;
+            border-radius: 5px;
+            color: #333;
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+        .search button:hover {
+            background-color: aqua;
+
+        }
+        
+        
+        input[type=text], input[type=password], input[type=email], input[type=date], input[type=time] {
+            width: 100%;
+            padding: .01px;
+            margin: 5px 22px 0;
+            display: inline-block;
+            border: none;
+            background: #fff;
+        }
+
+        .form-group, .btn{
+            align-items: center;
+            
+        }
+        input[type=submit]{
+            width: 10%;
+            padding: 10px;
+            margin: 30px;
+            display: inline-block;
+            border: none;
+            text-align: center;
+            background: #fff;
+           
+        }
+        form {
+            color: black;
+            font-weight: bold;
+            margin: 0 auto;
+            width: 260px;
+            float: center;
+            
+
+        }
+        label:after { content: " " }
+
+
+        .container {
+            
+            display: inline-block;
+            top: 140%;
+            left: 90%;
+            overflow: hidden;
+            transform: translate(-49%, -49%);    
+            width: 60%;
+            margin-top: 30%;
+            margin-left : 50%;
+            background: aquamarine;
+            padding: .01px;
+            border-radius: 15px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+
+    
+}
+
+.container-contact {
+
+    display: inline-block;
+            top: 140%;
+            left: 90%;
+            overflow: hidden;
+            transform: translate(-49%, -49%);    
+            width: 60%;
+            margin-top: 30%;
+            margin-left : 50%;
+            background: aquamarine;
+            padding: .001px;
+            border-radius: 15px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+} 
+
+        
+        marquee {
+            
+            width: "500";
+            height: "400";
+            background-color: azure;
+            padding: 15px 0;
+            color: black;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 20px;
+            font-style: italic;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+
+
+    </style>
+
+</head>
+<body>
+
+    <!-- navbar start-->
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+
+                <a class="navbar-brand" href="#">Event Bazaar</a>
+                 
+            </div>
+            <ul class="nav navbar-nav">
+                <li>  <a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'events' %}">Find events</a></li>
+                <li><a href="{% url 'vendor' %}">Vendor</a></li>
+                <li><a href="{% url 'booking' %}">Booking</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+            
+            </ul>
+            <h3>{{user.username}}</h3>
+            {% else %}
+            <ul class="nav navbar-nav navbar-right" >
+                
+                <li ><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li ><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <div class="search">
+                    
+                    <form  method="POST" >
+                        {% csrf_token %}
+                
+                        <h5 class="card-title">{{i.name}}</h5>
+                        <input type="text " placeholder="Search events...">
+                        <button type="submit">Search</button>
+            
+                    </form>
+                </div>
+                
+               
+            {% endif %}   
+
+            </ul>
+
+        </div>
+
+
+    </nav>
+
+
+    {%block content%}
+    {% endblock %}
+
+    <marquee direction="scroll">
+        <b>Events:</b> 'The Late Show with Stephen Colbert', 'Conan', 'Jimmy Kimmel Live', 'cooking', 'cakes in store', 'kotas',  'Nhloko', 'Indian cuisine',  'chinese cuisine',
+        6 May 2024 TOGAF Business ArchitectureJohannesburg, 6 May 2024	Sparx EA Tool Training	Johannesburg,7 May 2024
+Impact Management and Measurement Masterclass, 8 May 2024	FIDIC, NEC3 and JBCC Update Webinar 2024, online 9 May 2024, online ,9 May 2024. 
+
+    </marquee> 
+    
+</body>
+</html>

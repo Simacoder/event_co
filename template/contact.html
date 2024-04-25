@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{%block title%}
+ Contact
+{% endblock %}
+
+
+
+{%block content%}
+<div class="container-contact p3 text-center" >
+<center >
+ <form method="post" action="." >
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <button>Submit</button>
+ </form>
+</center>
+</div>
+{% endblock %}
