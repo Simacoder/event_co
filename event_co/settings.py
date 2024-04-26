@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-i@d@3&603nc=@gpt(ay#5$a)!d0jcm%3b38e)g^-55yr_co9!v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app']
 
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
 EMAIL_HOST_USER = '1861629b84ecc0'
