@@ -1,12 +1,16 @@
 import datetime
+from http import client
 import square
 from square.client import Client
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, HttpResponse
 from . models import Event
+from .models import Payment
 from . forms import BookingForm
 from . vendorform import BookingFormv
 from .contact_form import ContactForm
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -108,17 +112,36 @@ def success(request):
 
 
 
-def search_square(request):
-    # Initialize Square client with your access token
+
+def search_locations(request):
     client = square.Client(access_token='EAAAln6qiXnwtnZ986NdgY0V898ZfCABfl3GDC6gdMwUI-Lrtd8rx0lstjoVnz6s')
-    
-    # Example: Search for locations
-    try:
-        response = client.locations.search_locations()
-        locations = response['locations']
-        # Process response
-    except square.ApiError as e:
-        # Handle errors
-        error = e.errors
-    
-    return render(request, 'searchbar.html', {'locations': locations})
+    location_api = client.locations
+    search_results = location_api.search_locations(
+        query=request.GET.get('query'),
+        location_types=['ADDRESS']
+    )
+    return render(request, 'base.html', {'search_results': search_results})
+
+def base(request):
+	if request.method == "POST":
+		searched = request.POST['searched']
+		events = Event.objects.filter(description__contains=searched)
+	
+		return render(request, 
+		'base.html', 
+		{'searched':searched,
+		'events':events})
+	else:
+		return render(request, 
+		'base.html', 
+		{})
+
+
+def process_payment(request):
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        if amount:
+            payment = Payment.objects.create(amount=amount)
+            return JsonResponse({'success': True, 'message': 'Payment processed successfully'})
+    return JsonResponse({'success': False, 'message': 'Payment failed'})
+

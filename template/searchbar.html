@@ -1,22 +1,46 @@
 {% extends 'base.html' %}
 
-{%block title%}
- Search
-{% endblock %}
 
 
 
 {%block content%}
 <center>
     
- <form class="d-flex" method=POST action="{% url 'events' %}" >
-    {% csrf_token %}
-    <input class="form-control me-2" type="search" placeholder="search" aria-label="Search" name="searched">
-    <button class="btn btn-outline-secondary" type="submit">Search</button>
+   <div class="card">
+      <div class="card-header">
+        {% if searched %}
+          You Searched For {{ searched }}
+       {% else %}
+          Search Events...
+       {% endif %}
+      </div>
+      <div class="card-body">
     
-
- </form>
-
+    <form method=POST action="{% url 'events' %}">
+            {% csrf_token %}
+    
+            <input class="form-control me-2" type="search" placeholder="Search Venues" aria-label="Search" name="searched">
+            <br/>
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+          </form>
+    
+    </div></div>
+          <br/>
+          {% for event in events %}
+             <div class="card">
+      <div class="card-header">
+        {{ event }}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Name: {{ event.name }}</h5>
+        <p class="card-text">
+           <ul>
+        </p>
+      </div>
+      
+    </div>
+          {% endfor %}
+ 
  
 </center>
 {% endblock %}

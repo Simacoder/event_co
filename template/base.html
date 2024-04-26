@@ -209,6 +209,7 @@
                 <li><a href="{% url 'events' %}">Find events</a></li>
                 <li><a href="{% url 'vendor' %}">Vendor</a></li>
                 <li><a href="{% url 'booking' %}">Booking</a></li>
+                <li><a href="{% url 'payment_form' %}">Payment</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
                 <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
             
@@ -220,6 +221,13 @@
                 <li ><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li ><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <div class="search">
+                    <div class="card-header">
+                        {% if searched %}
+                          You Searched For {{ searched }}
+                       {% else %}
+                          
+                       {% endif %}
+                      </div>
                     
                     <form  method="POST" >
                         {% csrf_token %}
@@ -230,6 +238,21 @@
             
                     </form>
                 </div>
+                {% for event in events %}
+             <div class="card">
+      <div class="card-header">
+        {{ event }}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Name: {{ event.name }}</h5>
+        <p class="card-text">
+           <ul>
+        </p>
+      </div>
+      
+    </div>
+          {% endfor %}
+ 
                 
                
             {% endif %}   

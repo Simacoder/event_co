@@ -38,6 +38,7 @@ EMAIL_PORT = '2525'
 INSTALLED_APPS = [
     'event_app',
     'userapp',
+    'payment_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
