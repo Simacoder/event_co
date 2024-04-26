@@ -1,17 +1,15 @@
+vercel.json code:
+
 {
-    "builds":[
+    "builds": [{
+        "src": "event_co/wsgi.py",
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+    }],
+    "routes": [
         {
-            "src":"event_co/wsgi.py",
-            "use": "@vercel/python",
-            "config":{"maxLambdaSize": "15mb","runtime": "python3.9"}
+            "src": "/(.*)",
+            "dest": "event_co/wsgi.py"
         }
-    ],
-    {
-        "routes":[
-            {
-                "src":"/(.*)",
-                "dest":"event_co/wsig.py"
-            }
-        ]
-    }
+    ]
 }
